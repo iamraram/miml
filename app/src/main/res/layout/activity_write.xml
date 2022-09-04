@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background"
+    android:paddingStart="21dp"
+    tools:context=".WriteActivity">
+
+    <TextView
+        android:id="@+id/mainTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="노래 검색하기"
+        android:layout_marginTop="21dp"
+        android:textColorHint="@color/text"
+        android:textSize="22sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:textColor="@color/text"
+        tools:ignore="HardcodedText"
+    />
+
+    <SearchView
+        android:id="@+id/search"
+        android:background="@drawable/border"
+        app:iconifiedByDefault="false"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        app:layout_constraintTop_toBottomOf="@id/mainTitle"
+        android:layout_marginTop="21dp"
+        android:layout_marginEnd="21dp"
+    />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

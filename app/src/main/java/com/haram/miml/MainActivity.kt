@@ -1,7 +1,9 @@
 package com.haram.miml
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.TextView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 
@@ -10,29 +12,27 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        val addBtn = findViewById<TextView>(R.id.addBtn)
+        addBtn.setOnClickListener {
+            val intent = Intent(this, WriteActivity::class.java)
+            startActivity(intent)
+        }
+
         val recyclerViewItems: ArrayList<recyclerViewItem> = ArrayList()
-        recyclerViewItems.add(
-            recyclerViewItem(
-                "Sneakers",
-                "ITZY(있지)",
-                "© JYP ent.",
-                false,
-                null,
-                null,
-                null
+
+        for (i in 0 .. 15) {
+            recyclerViewItems.add(
+                recyclerViewItem(
+                    "Sneakers",
+                    "ITZY(있지)",
+                    "© JYP ent.",
+                    false,
+                    null,
+                    null,
+                    null
+                )
             )
-        )
-        recyclerViewItems.add(
-            recyclerViewItem(
-                "안녕, 곰인형",
-                "볼빨간사춘기",
-                "© Shofar Music",
-                false,
-                null,
-                null,
-                null
-            )
-        )
+        }
 
         val recyclerView = findViewById<RecyclerView>(R.id.musicRecyclerView)
         recyclerView.layoutManager = LinearLayoutManager(this)

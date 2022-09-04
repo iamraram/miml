@@ -36,6 +36,7 @@
     />
 
     <androidx.recyclerview.widget.RecyclerView
+        android:overScrollMode="never"
         android:id="@+id/musicRecyclerView"
         tools:listitem="@layout/recyclerview"
         android:layout_width="match_parent"
@@ -48,5 +49,21 @@
         app:layout_constraintTop_toBottomOf="@+id/subTitle"
         android:layout_marginTop="26dp"
     />
+
+    <TextView
+        android:id="@+id/addBtn"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginEnd="30dp"
+        android:layout_marginBottom="30dp"
+        android:text="+"
+        android:textSize="30sp"
+        android:background="@drawable/roundbutton"
+        android:textColor="@color/white"
+        android:gravity="center"
+        tools:ignore="HardcodedText" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
