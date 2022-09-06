@@ -1,6 +1,10 @@
 package com.haram.miml
 
+import android.annotation.SuppressLint
+import android.content.Context
 import android.os.Bundle
+import android.os.Handler
+import android.os.Message
 import android.util.Log
 import android.view.View
 import android.view.inputmethod.InputMethodManager
@@ -30,6 +34,14 @@ class WriteActivity : AppCompatActivity() {
         val adapter = SearchViewAdapter(searchViewItems)
         searchRecyclerview.adapter = adapter
 
+        val handler: Handler = @SuppressLint("HandlerLeak")
+        object: Handler() {
+            @SuppressLint("NotifyDataSetChanged")
+            override fun handleMessage(msg: Message) {
+                adapter.notifyDataSetChanged()
+            }
+        }
+
         search.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
                 Log.d("text", 10.toString())
@@ -42,17 +54,18 @@ class WriteActivity : AppCompatActivity() {
                 thread {
                     val searchSite = "https://www.melon.com/search/song/index.htm?q=${query}&section=&searchGnbYn=Y&kkoSpl=N&kkoDpType="
                     val doc = Jsoup.connect(searchSite).get().select("div.pd_none div.ellipsis")
-                    val doc2 = Jsoup.connect(searchSite).get().select("div.wrap div#artistName")
+                    val doc2 = Jsoup.connect(searchSite).get().select("div.wrap div#artistName span")
 
                     doc.forEachIndexed{ _, elem ->
                         a.add(elem.select("a.fc_gray").attr("title"))
                     }
 
                     doc2.forEachIndexed{ _, elem ->
-                        b.add(elem.select("a.fc_gray").text())
+                        b.add(elem.select("a.fc_mgray").text())
                     }
 
                     size = a.size
+                    searchViewItems.clear()
 
                     for (i in 0 until size) {
                         searchViewItems.add(
@@ -63,14 +76,12 @@ class WriteActivity : AppCompatActivity() {
                         )
                     }
 
-
-
-
-
-//                    searchRecyclerview.visibility = View.VISIBLE
+                    handler.sendMessage(handler.obtainMessage())
+                    searchRecyclerview.visibility = View.VISIBLE
 
                     Log.d("texts", searchSite)
-                    Log.d("texts", a.toString() + b.toString())
+                    Log.d("texts", a.toString())
+                    Log.d("texts", b.toString())
                 }
                 return true
             }

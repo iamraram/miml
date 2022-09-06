@@ -10,7 +10,7 @@ import androidx.recyclerview.widget.RecyclerView
 class SearchViewAdapter(private val searchViewItems : ArrayList<searchViewItem>): RecyclerView.Adapter<SearchViewAdapter.searchRecyclerviewViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): searchRecyclerviewViewHolder {
-        val itemView = LayoutInflater.from(parent.context).inflate(R.layout.recyclerview, parent, false)
+        val itemView = LayoutInflater.from(parent.context).inflate(R.layout.searchview, parent, false)
         return searchRecyclerviewViewHolder(itemView)
     }
 
