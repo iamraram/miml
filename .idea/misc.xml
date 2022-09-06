@@ -4,12 +4,14 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="app/src/main/res/drawable/border.xml" value="0.2545" />
+        <entry key="app/src/main/res/drawable/btborder.xml" value="0.5326248168945313" />
         <entry key="app/src/main/res/drawable/recyclerview.xml" value="0.1685" />
         <entry key="app/src/main/res/drawable/round.xml" value="0.1685" />
         <entry key="app/src/main/res/drawable/roundButton.xml" value="0.2555" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.234210205078125" />
-        <entry key="app/src/main/res/layout/activity_write.xml" value="0.21089630126953127" />
+        <entry key="app/src/main/res/layout/activity_write.xml" value="0.25109558105468754" />
         <entry key="app/src/main/res/layout/recyclerview.xml" value="0.2224459228515625" />
+        <entry key="app/src/main/res/layout/searchview.xml" value="0.2359375" />
       </map>
     </option>
   </component>
