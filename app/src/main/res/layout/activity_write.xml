@@ -36,7 +36,6 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:overScrollMode="never"
-        android:visibility="invisible"
         android:id="@+id/searchRecyclerView"
         tools:listitem="@layout/searchview"
         android:layout_width="match_parent"

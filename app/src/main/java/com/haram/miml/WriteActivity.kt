@@ -12,6 +12,7 @@ import org.jsoup.Jsoup
 import kotlin.concurrent.thread
 
 class WriteActivity : AppCompatActivity() {
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_write)
@@ -21,12 +22,12 @@ class WriteActivity : AppCompatActivity() {
         val imm: InputMethodManager = getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
         imm.showSoftInput(search, 0)
 
-        val searchRecyclerviewItems: ArrayList<searchViewItem> = ArrayList()
+        val searchViewItems: ArrayList<searchViewItem> = ArrayList()
 
         val searchRecyclerview = findViewById<RecyclerView>(R.id.searchRecyclerView)
         searchRecyclerview.layoutManager = LinearLayoutManager(this)
 
-        val adapter = RecyclerViewAdapter(searchViewItems)
+        val adapter = SearchViewAdapter(searchViewItems)
         searchRecyclerview.adapter = adapter
 
         search.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
@@ -53,20 +54,24 @@ class WriteActivity : AppCompatActivity() {
 
                     size = a.size
 
+                    for (i in 0 until size) {
+                        searchViewItems.add(
+                            searchViewItem(
+                                a[i],
+                                b[i]
+                            )
+                        )
+                    }
+
+
+
+
+
+//                    searchRecyclerview.visibility = View.VISIBLE
+
                     Log.d("texts", searchSite)
                     Log.d("texts", a.toString() + b.toString())
                 }
-
-                for (i in 0 .. size) {
-                    searchRecyclerviewItems.add(
-                        searchViewItem(
-                            a[i],
-                            b[i]
-                        )
-                    )
-                }
-
-                searchRecyclerview.visibility = View.VISIBLE
                 return true
             }
 
