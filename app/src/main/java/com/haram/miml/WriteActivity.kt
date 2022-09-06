@@ -48,6 +48,7 @@ class WriteActivity : AppCompatActivity() {
 
                 val a: MutableList<String> = mutableListOf()
                 val b: MutableList<String> = mutableListOf()
+                val c: MutableList<String> = mutableListOf()
 
                 var size: Int = 0
 
@@ -55,6 +56,7 @@ class WriteActivity : AppCompatActivity() {
                     val searchSite = "https://www.melon.com/search/song/index.htm?q=${query}&section=&searchGnbYn=Y&kkoSpl=N&kkoDpType="
                     val doc = Jsoup.connect(searchSite).get().select("div.pd_none div.ellipsis")
                     val doc2 = Jsoup.connect(searchSite).get().select("div.wrap div#artistName span")
+                    val doc3 = Jsoup.connect(searchSite).get().select("div.pd_none")
 
                     doc.forEachIndexed{ _, elem ->
                         a.add(elem.select("a.fc_gray").attr("title"))
@@ -64,6 +66,10 @@ class WriteActivity : AppCompatActivity() {
                         b.add(elem.select("a.fc_mgray").text())
                     }
 
+                    doc3.forEachIndexed{ _, elem ->
+                        c.add(elem.select("input.input_check").attr("value"))
+                    }
+
                     size = a.size
                     searchViewItems.clear()
 
@@ -71,7 +77,8 @@ class WriteActivity : AppCompatActivity() {
                         searchViewItems.add(
                             searchViewItem(
                                 a[i],
-                                b[i]
+                                b[i],
+                                c[i]
                             )
                         )
                     }
