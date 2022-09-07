@@ -9,10 +9,12 @@ import android.util.Log
 import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.SearchView
+import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import org.jsoup.Jsoup
+import java.lang.IndexOutOfBoundsException
 import kotlin.concurrent.thread
 
 class WriteActivity : AppCompatActivity() {
@@ -49,6 +51,7 @@ class WriteActivity : AppCompatActivity() {
                 val a: MutableList<String> = mutableListOf()
                 val b: MutableList<String> = mutableListOf()
                 val c: MutableList<String> = mutableListOf()
+                val c2: MutableList<String> = mutableListOf()
 
                 var size: Int = 0
 
@@ -56,7 +59,7 @@ class WriteActivity : AppCompatActivity() {
                     val searchSite = "https://www.melon.com/search/song/index.htm?q=${query}&section=&searchGnbYn=Y&kkoSpl=N&kkoDpType="
                     val doc = Jsoup.connect(searchSite).get().select("div.pd_none div.ellipsis")
                     val doc2 = Jsoup.connect(searchSite).get().select("div.wrap div#artistName span")
-                    val doc3 = Jsoup.connect(searchSite).get().select("div.pd_none")
+                    val doc3 = Jsoup.connect(searchSite).get().select("div.songTypeOne table tbody tr td div.wrap.pd_none")
 
                     doc.forEachIndexed{ _, elem ->
                         a.add(elem.select("a.fc_gray").attr("title"))
@@ -73,22 +76,43 @@ class WriteActivity : AppCompatActivity() {
                     size = a.size
                     searchViewItems.clear()
 
-                    for (i in 0 until size) {
-                        searchViewItems.add(
-                            searchViewItem(
-                                a[i],
-                                b[i],
-                                c[i]
-                            )
-                        )
+                    for (i in 0 until c.size) {
+                        if (i % 4 == 0) {
+                            c2.add(c[i])
+                        }
                     }
 
-                    handler.sendMessage(handler.obtainMessage())
-                    searchRecyclerview.visibility = View.VISIBLE
+                    Log.d("href", c2.toString())
 
-                    Log.d("texts", searchSite)
-                    Log.d("texts", a.toString())
-                    Log.d("texts", b.toString())
+                    for (i in 0 until 15) {
+                        try {
+                            searchViewItems.add(
+                                searchViewItem(
+                                    a[i],
+                                    b[i],
+                                    c2[i]
+                                )
+                            )
+                        }
+                        catch (e: IndexOutOfBoundsException) {
+                            break
+                        }
+                    }
+
+//                    if (searchViewItems.size == 0) {
+//                        txt.visibility = View.VISIBLE
+//                        searchRecyclerview.visibility = View.INVISIBLE
+//                    }
+//                    else {
+//                        txt.visibility = View.INVISIBLE
+                        searchRecyclerview.visibility = View.VISIBLE
+
+                        handler.sendMessage(handler.obtainMessage())
+
+                        Log.d("texts", searchSite)
+                        Log.d("texts", a.toString())
+                        Log.d("texts", b.toString())
+//                    }
                 }
                 return true
             }

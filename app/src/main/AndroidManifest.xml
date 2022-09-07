@@ -16,6 +16,9 @@
         android:theme="@style/Theme.MIML"
         tools:targetApi="31">
         <activity
+            android:name=".MakeActivity"
+            android:exported="false" />
+        <activity
             android:name=".WriteActivity"
             android:exported="false" />
         <activity

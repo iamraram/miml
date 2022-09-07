@@ -1,10 +1,12 @@
 package com.haram.miml
 
+import android.content.Intent
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.RecyclerView
 
 class SearchViewAdapter(private val searchViewItems : ArrayList<searchViewItem>): RecyclerView.Adapter<SearchViewAdapter.searchRecyclerviewViewHolder>() {
@@ -31,8 +33,12 @@ class SearchViewAdapter(private val searchViewItems : ArrayList<searchViewItem>)
             musicTitle.text = searchViewItem.music_title
             musicDesc.text = searchViewItem.music_artist
 
+            val intent = Intent(itemView.context, MakeActivity::class.java)
+
             itemView.setOnClickListener {
                 Log.d("texts", i.toString())
+                intent.putExtra("href", searchViewItem.href)
+                itemView.context.startActivity(intent)
             }
         }
 
