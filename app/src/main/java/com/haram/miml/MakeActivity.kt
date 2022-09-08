@@ -10,6 +10,8 @@ import android.text.Spanned
 import android.util.Log
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.Dispatchers.Main
@@ -22,14 +24,28 @@ class MakeActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_make)
+//        val desc = findViewById<TextView>(R.id.desc)
 
-        val desc = findViewById<TextView>(R.id.desc)
+        var DescViewItems: ArrayList<DescItem> = ArrayList()
+
+        val DescRecyclerView = findViewById<RecyclerView>(R.id.descRecyclerview)
+        DescRecyclerView.layoutManager = LinearLayoutManager(this)
+
+        val adapter = DescViewAdapter(DescViewItems)
+        DescRecyclerView.adapter = adapter
+
+        val handler: Handler = @SuppressLint("HandlerLeak")
+        object : Handler() {
+            @SuppressLint("NotifyDataSetChanged")
+            override fun handleMessage(msg: Message) {
+                adapter.notifyDataSetChanged()
+            }
+        }
 
         val href = intent.getStringExtra("href")
         Log.d("texts", href.toString())
 
         var doc: String = ""
-        var bool: Boolean = false
 
         thread {
             val searchSite =
@@ -38,23 +54,21 @@ class MakeActivity : AppCompatActivity() {
             doc = Jsoup.connect(searchSite).get().select("div#d_video_summary").toString()
 
             Log.d("texts", doc)
-            bool = true
 
-            fun String.toSpanned(): Spanned {
-                return Html.fromHtml(this, Html.FROM_HTML_MODE_LEGACY)
+            val a: MutableList<String> = doc.split("-->").toMutableList()
+            val b: MutableList<String> = a[1].split("<br>").toMutableList()
+            Log.d("listss", b.toString())
+
+            for (i in 0 until b.size - 1) {
+                DescViewItems.add(
+                    DescItem(
+                        b[i],
+                        false
+                    )
+                )
             }
 
-            val a = doc.toSpanned().toString()
-            Log.d("!!!!!", doc.toSpanned().toString())
-
-            CoroutineScope(Main).launch {
-                desc.setTextColor(R.color.text)
-                desc.text = a
-                // do something
-            }
-
+            handler.sendMessage(handler.obtainMessage())
         }
-
-        Log.d("bools", "3 " + bool.toString())
     }
 }

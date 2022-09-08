@@ -46,8 +46,6 @@ class WriteActivity : AppCompatActivity() {
 
         search.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
-                Log.d("text", 10.toString())
-
                 val a: MutableList<String> = mutableListOf()
                 val b: MutableList<String> = mutableListOf()
                 val c: MutableList<String> = mutableListOf()
@@ -56,6 +54,7 @@ class WriteActivity : AppCompatActivity() {
                 var size: Int = 0
 
                 thread {
+                    Log.d("href2", query.toString())
                     val searchSite = "https://www.melon.com/search/song/index.htm?q=${query}&section=&searchGnbYn=Y&kkoSpl=N&kkoDpType="
                     val doc = Jsoup.connect(searchSite).get().select("div.pd_none div.ellipsis")
                     val doc2 = Jsoup.connect(searchSite).get().select("div.wrap div#artistName span")

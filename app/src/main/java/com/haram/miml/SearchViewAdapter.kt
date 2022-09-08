@@ -29,6 +29,7 @@ class SearchViewAdapter(private val searchViewItems : ArrayList<searchViewItem>)
         private val musicTitle: TextView = itemView.findViewById(R.id.musicTitle)
         private val musicDesc: TextView = itemView.findViewById(R.id.musicDesc)
 
+
         fun bind(searchViewItem: searchViewItem, i: Int) {
             musicTitle.text = searchViewItem.music_title
             musicDesc.text = searchViewItem.music_artist
